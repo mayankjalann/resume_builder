@@ -106,7 +106,7 @@ const ResumeBuilder = () => {
       <div className="min-h-screen bg-[#0b1326] font-['Geist',_sans-serif] p-4 md:p-6 overflow-hidden flex flex-col">
         
         {/* Top Navigation Bar for Builder */}
-        <div className="flex justify-between items-center mb-6 bg-[#171f33]/40 border border-white/10 backdrop-blur-md px-6 py-4 rounded-2xl">
+        <div className="print:hidden flex justify-between items-center mb-6 bg-[#171f33]/40 border border-white/10 backdrop-blur-md px-6 py-4 rounded-2xl">
           <Link to={'/app'} className="flex items-center gap-2 text-[#908fa0] hover:text-white transition-colors text-sm font-semibold">
             <ArrowLeftIcon className="w-4 h-4" /> Back to Dashboard
           </Link>
@@ -162,7 +162,7 @@ const ResumeBuilder = () => {
         {/* Split Screen Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 h-[calc(100vh-140px)]">
           {/* LEFT SIDE: Form Inputs */}
-          <div className="h-full">
+          <div className="print:hidden h-full">
              <FormSection />
           </div>
           
