@@ -14,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#0b1326]/80 backdrop-blur-md border-b border-white/10 font-['Geist',_sans-serif]">
+    <nav className="print:hidden sticky top-0 z-50 w-full bg-[#0b1326]/80 backdrop-blur-md border-b border-white/10 font-['Geist',_sans-serif]">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
         
         {/* Left: Logo (Links to Home) */}
