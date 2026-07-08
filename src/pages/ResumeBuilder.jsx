@@ -5,7 +5,7 @@ import { ResumeContext } from '../context/ResumeContext';
 import FormSection from '../components/FormSection';
 import PreviewSection from '../components/PreviewSection';
 import { dummyResumes } from '../assets/assets';
-import { Download, Save, Share2 } from 'lucide-react'; // Example imports
+// Example imports
 // NOTE: We don't need dummyResumes here anymore because we are editing a single resume structure.
 // But for now, if you want to load the dummy data array to find a title, you could import it.
 
