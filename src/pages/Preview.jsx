@@ -25,14 +25,19 @@ const Preview = () => {
   }, [])
 
   return (
-    // Wrap the PreviewSection in the Context Provider!
     <ResumeContext.Provider value={{ resumeData, setResumeData }}>
-      <div className="min-h-screen bg-[#0b1326] p-4 flex justify-center items-start">
-        {
-          resumeData 
-            ? <PreviewSection /> 
-            : <div className="text-white text-xl mt-10">Loading Resume...</div>
-        }
+      {/* 1. We removed the padding and added py-10 (padding top/bottom) */}
+      <div className="min-h-screen bg-[#0b1326] flex justify-center py-10 overflow-auto">
+        
+        {/* 2. We wrap the preview in a fixed-width container (max-w-4xl) so it spans the screen but doesn't get too stretched out */}
+        <div className="w-full max-w-4xl bg-white shadow-2xl rounded-sm overflow-hidden">
+          {
+            resumeData 
+              ? <PreviewSection /> 
+              : <div className="text-white text-xl mt-10 text-center">Loading Resume...</div>
+          }
+        </div>
+        
       </div>
     </ResumeContext.Provider>
   )
