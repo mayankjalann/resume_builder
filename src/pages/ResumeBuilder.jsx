@@ -84,7 +84,7 @@ const ResumeBuilder = () => {
   };
 
   const handlePrint = useReactToPrint({
-    content: () => printRef.current,
+    content: () => printRef,
     documentTitle: `${resumeData?.personal_info?.firstName || 'Resume'}_${resumeData?.personal_info?.lastName || 'Draft'}`,
   });
 
