@@ -12,6 +12,8 @@ import { dummyResumes } from '../assets/assets';
 
 const API_URL = '/api/resumes';
 
+
+
 const ResumeBuilder = () => {
   const { resumeId } = useParams();
   const printRef = useRef();
@@ -84,10 +86,20 @@ const ResumeBuilder = () => {
     }
   };
 
-  const handlePrint = useReactToPrint({
-    content: () => printRef,
-    documentTitle: `${resumeData?.personal_info?.firstName || 'Resume'}_${resumeData?.personal_info?.lastName || 'Draft'}`,
-  });
+  const downloadResume=()=>{
+    window.print();
+  }
+
+  const handleShare=()=>{
+    const frontendURL=window.location.href.split('/app')[0];
+    const resumeURL=frontendURL+/view/+resumeId;
+
+    if(navigator.share){
+      navigator.share({url:resumeURL,text:"My Resume"})
+    }else{
+      alert("Share not supported in this browser");
+    }
+  }
 
   return (
     <ResumeContext.Provider value={{ resumeData, setResumeData }}>
@@ -118,12 +130,20 @@ const ResumeBuilder = () => {
               {isSaving ? 'Saving...' : 'Save Draft'}
             </button>
             <button 
-              onClick={handlePrint}
+              onClick={downloadResume}
               className="flex items-center gap-2 px-5 py-2 bg-[#6366f1] hover:bg-[#4f52d6] text-white text-sm font-semibold rounded-lg shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all"
             >
               <DownloadIcon className="w-4 h-4" /> Download PDF
             </button>
-
+            {resumeData.public && (
+                <button 
+                  onClick={handleShare}
+                  className="p-2 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors"
+                  title="Share Public Link"
+                >
+                  <Share2 className="w-4 h-4" />
+                </button>
+              )}
             <button 
               onClick={() => setResumeData({ ...resumeData, public: !resumeData.public })}
               className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-colors border ${
