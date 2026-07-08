@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeftIcon, DownloadIcon } from 'lucide-react';
-import { useReactToPrint } from 'react-to-print';
+import { ArrowLeftIcon, DownloadIcon, Share2 } from 'lucide-react';import { useReactToPrint } from 'react-to-print';
 import { ResumeContext } from '../context/ResumeContext';
 import FormSection from '../components/FormSection';
 import PreviewSection from '../components/PreviewSection';
 import { dummyResumes } from '../assets/assets';
+import { Download, Save, Share2 } from 'lucide-react'; // Example imports
 // NOTE: We don't need dummyResumes here anymore because we are editing a single resume structure.
 // But for now, if you want to load the dummy data array to find a title, you could import it.
 
@@ -122,6 +122,19 @@ const ResumeBuilder = () => {
             >
               <DownloadIcon className="w-4 h-4" /> Download PDF
             </button>
+
+            <button 
+              onClick={() => setResumeData({ ...resumeData, public: !resumeData.public })}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-colors border ${
+                resumeData.public 
+                  ? 'bg-green-500/10 text-green-400 border-green-500/20 hover:bg-green-500/20' 
+                  : 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20 hover:bg-zinc-500/20'
+              }`}
+              title={resumeData.public ? "Make Private" : "Make Public"}
+            >
+              {resumeData.public ? <Globe className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
+              {resumeData.public ? 'Public' : 'Private'}
+            </button>
           </div>
         </div>
 
@@ -134,6 +147,7 @@ const ResumeBuilder = () => {
           
           {/* RIGHT SIDE: Live A4 Preview */}
           <div className="hidden md:block h-full overflow-y-auto custom-scrollbar rounded-lg pb-10">
+             
              <div ref={printRef}>
                <PreviewSection />
              </div>
