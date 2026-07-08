@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeftIcon, DownloadIcon, Share2 } from 'lucide-react';import { useReactToPrint } from 'react-to-print';
+import { ArrowLeftIcon, DownloadIcon, Share2, Globe, Lock } from 'lucide-react';
+import { useReactToPrint } from 'react-to-print';
 import { ResumeContext } from '../context/ResumeContext';
 import FormSection from '../components/FormSection';
 import PreviewSection from '../components/PreviewSection';
