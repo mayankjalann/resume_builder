@@ -31,7 +31,7 @@ const Banner = () => {
       <div className="relative z-10 flex items-center gap-4">
         {/* Login Button (Glassmorphic) */}
         <button onClick={()=>{
-            navigate('/auth');
+            navigate('/auth/login');
         }}className="px-4 py-2 text-sm font-semibold text-[#c7c4d7] hover:text-[#dae2fd] transition-colors duration-300">
           Log In
         </button>

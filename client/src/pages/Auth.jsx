@@ -5,7 +5,7 @@ const Auth = () => {
   // ✅ 2. Get the state from the URL path (/auth/signup)
   const { state: urlStateParam } = useParams();
   
-  // ✅ 3. Read it properly
+
   const urlState = urlStateParam === 'signup' ? 'Sign Up' : 'Login';
   
   // 3. Set the form state based on the URL
@@ -20,21 +20,46 @@ const Auth = () => {
   const navigate = useNavigate();
 
   // Handle Form Submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (state === 'Login') {
-      // --- LOGIN LOGIC ---
-      console.log("Logging in with:", email);
-      navigate('/app');
-    } else {
-      // --- SIGN UP LOGIC ---
-      if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
+    try {
+      if (state === 'Login') {
+        // --- LOGIN LOGIC ---
+        const res = await fetch('http://localhost:8000/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+          credentials: 'include'
+        });
+        
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Login failed');
+        navigate('/app');
+      } else {
+        // --- SIGN UP LOGIC ---
+        if (password !== confirmPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+        
+        const res = await fetch('http://localhost:8000/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+          credentials: 'include'
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Registration failed');
+        
+        alert("Registration successful! Please login.");
+        setState('Login');
+        navigate('/auth/login');
       }
-      console.log("Registering:", name, email);
-      navigate('/app');
+    } catch (err) {
+      alert(err.message);
+      console.error(err);
     }
   };
 
@@ -42,8 +67,7 @@ const Auth = () => {
   const handleToggle = () => {
     const newState = state === 'Login' ? 'Sign Up' : 'Login';
     setState(newState);
-    // Update the URL so it matches the current view
-    setSearchParams({ state: newState === 'Login' ? 'login' : 'signup' });
+    navigate(`/auth/${newState === 'Login' ? 'login' : 'signup'}`);
   };
 
   return (
